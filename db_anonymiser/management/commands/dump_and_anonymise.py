@@ -1,6 +1,7 @@
 import os
 import logging
 
+import boto3
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
@@ -21,11 +22,24 @@ class Command(BaseCommand):
 
     def configure(self):
         self.keep_local_dumpfile = False
-        self.temporary_dump_location = getattr(settings, "DB_ANONYMISER_TEMPORARY_DUMP_LOCATION", "/tmp/anonymised.sql")
+        self.dump_file_name = settings.DB_ANONYMISER_DUMP_FILE_NAME
+        self.temporary_dump_location = getattr(settings, "DB_ANONYMISER_TEMPORARY_DUMP_LOCATION", f"/tmp/{self.dump_file_name}")
         try:
             self.config_location = settings.DB_ANONYMISER_CONFIG_LOCATION
         except AttributeError:
             raise CommandError("DB_ANONYMISER_CONFIG_LOCATION must be set in django settings.")
+        additional_s3_params = {}
+        if settings.DB_ANONYMISER_AWS_ENDPOINT_URL:
+            additional_s3_params["endpoint_url"] = settings.DB_ANONYMISER_AWS_ENDPOINT_URL
+        logger.info(additional_s3_params)
+        self.s3_client = boto3.client(
+            "s3",
+            aws_access_key_id=settings.DB_ANONYMISER_AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.DB_ANONYMISER_AWS_SECRET_ACCESS_KEY,
+            region_name=settings.DB_ANONYMISER_AWS_REGION,
+            **additional_s3_params,
+        )
+        self.s3_bucket_name = settings.DB_ANONYMISER_AWS_STORAGE_BUCKET_NAME
 
     def handle(self, *args, **options):
         logger.info("Starting DB dump and anonymiser")
@@ -52,8 +66,9 @@ class Command(BaseCommand):
             )
 
     def write_to_s3(self):
-        # write file to S3 location
-        pass
+        logger.info("Writing file %s to S3", self.dump_file_name)
+        self.s3_client.upload_file(self.temporary_dump_location, self.s3_bucket_name, self.dump_file_name)
+        logger.info("Writing file to S3 complete")
 
     def cleanup(self):
         if self.keep_local_dumpfile:
