@@ -19,6 +19,11 @@ class Command(BaseCommand):
             action="store_true",
             help="Keep local dump file, rather than cleaning it up.",
         )
+        parser.add_argument(
+            "--skip-s3-upload",
+            action="store_true",
+            help="Skip uploading to S3.",
+        )
 
     def configure(self):
         self.keep_local_dumpfile = False
@@ -48,6 +53,9 @@ class Command(BaseCommand):
         if options["keep_local_dumpfile"]:
             self.keep_local_dumpfile = True
 
+        if options["skip_s3_upload"]:
+            self.skip_s3_upload = True
+
         try:
             self.dump_anonymised_db()
             self.write_to_s3()
@@ -66,6 +74,8 @@ class Command(BaseCommand):
             )
 
     def write_to_s3(self):
+        if self.skip_s3_upload:
+            return
         logger.info("Writing file %s to S3", self.dump_file_name)
         self.s3_client.upload_file(self.temporary_dump_location, self.s3_bucket_name, self.dump_file_name)
         logger.info("Writing file to S3 complete")
@@ -75,5 +85,5 @@ class Command(BaseCommand):
             return
         try:
             os.remove(self.temporary_dump_location)
-        except os.exceptions.FileNotFoundError:
+        except FileNotFoundError:
             pass
