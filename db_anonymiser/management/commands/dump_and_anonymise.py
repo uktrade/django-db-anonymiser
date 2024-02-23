@@ -27,6 +27,7 @@ class Command(BaseCommand):
 
     def configure(self):
         self.keep_local_dumpfile = False
+        self.skip_s3_upload = False
         self.dump_file_name = settings.DB_ANONYMISER_DUMP_FILE_NAME
         self.temporary_dump_location = getattr(settings, "DB_ANONYMISER_TEMPORARY_DUMP_LOCATION", f"/tmp/{self.dump_file_name}")
         try:
@@ -36,7 +37,6 @@ class Command(BaseCommand):
         additional_s3_params = {}
         if settings.DB_ANONYMISER_AWS_ENDPOINT_URL:
             additional_s3_params["endpoint_url"] = settings.DB_ANONYMISER_AWS_ENDPOINT_URL
-        logger.info(additional_s3_params)
         self.s3_client = boto3.client(
             "s3",
             aws_access_key_id=settings.DB_ANONYMISER_AWS_ACCESS_KEY_ID,
@@ -66,12 +66,14 @@ class Command(BaseCommand):
     def dump_anonymised_db(self):
         db_details = settings.DATABASES["default"]
         postgres_url = f"postgresql://{db_details['USER']}:{db_details['PASSWORD']}@{db_details['HOST']}:{db_details['PORT']}/{db_details['NAME']}"
+        logger.info("Writing anonymised dumpfile to temporary location %s", self.dump_file_name)
         with open(self.temporary_dump_location, "w") as outfile:
             run(
                 url=postgres_url,
                 config=Configuration.from_file(self.config_location),
                 output=outfile,
             )
+        logger.info("Writing anonymised dumpfile complete")
 
     def write_to_s3(self):
         if self.skip_s3_upload:
@@ -83,7 +85,9 @@ class Command(BaseCommand):
     def cleanup(self):
         if self.keep_local_dumpfile:
             return
+        logger.info("Cleaning up temporary files")
         try:
             os.remove(self.temporary_dump_location)
         except FileNotFoundError:
             pass
+        logger.info("Clean up complete")
