@@ -28,7 +28,9 @@ class Command(BaseCommand):
         self.keep_local_dumpfile = False
         self.skip_s3_upload = False
         self.dump_file_name = settings.DB_ANONYMISER_DUMP_FILE_NAME
-        self.temporary_dump_location = getattr(settings, "DB_ANONYMISER_TEMPORARY_DUMP_LOCATION", f"/tmp/{self.dump_file_name}")
+        self.temporary_dump_location = getattr(
+            settings, "DB_ANONYMISER_TEMPORARY_DUMP_LOCATION", f"/tmp/{self.dump_file_name}"
+        )
         try:
             self.config_location = settings.DB_ANONYMISER_CONFIG_LOCATION
         except AttributeError:
