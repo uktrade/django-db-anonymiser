@@ -8,7 +8,6 @@ from django.core.management.base import BaseCommand, CommandError
 from database_sanitizer.config import Configuration
 from database_sanitizer.dump import run
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -49,7 +48,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         logger.info("Starting DB dump and anonymiser")
         self.configure()
-            
+
         if options["keep_local_dumpfile"]:
             self.keep_local_dumpfile = True
 
