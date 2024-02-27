@@ -36,7 +36,10 @@ class Command(BaseCommand):
         except AttributeError:
             raise CommandError("DB_ANONYMISER_CONFIG_LOCATION must be set in django settings.")
         additional_s3_params = {}
-        if settings.DB_ANONYMISER_AWS_ENDPOINT_URL:
+        aws_endpoint_url = getattr(
+            settings, "DB_ANONYMISER_AWS_ENDPOINT_URL", None
+        )
+        if aws_endpoint_url:
             additional_s3_params["endpoint_url"] = settings.DB_ANONYMISER_AWS_ENDPOINT_URL
         self.s3_client = boto3.client(
             "s3",
