@@ -17,7 +17,7 @@ the configuration for how DB columns are anonymised can be configured in simple 
 
 ## Getting started
 
-- Add `database-sanitiser>=1.1.0`, `faker>=4.18.0`, `boto3>=1.26.17` to python requirements
+- Add `database-sanitizer>=1.1.0`, `faker>=4.18.0`, `boto3>=1.26.17` to python requirements
 - Add this github repository as a submodule to your django application
 - Add `db_anonymiser` to `INSTALLED_APPS`
 - Set the following django settings;
