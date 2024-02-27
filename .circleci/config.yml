@@ -2,6 +2,8 @@ version: 2.1
 
 image_python: &image_python
   image: cimg/python:3.8.18
+  environment:
+    DATABASE_URL: postgresql://postgres:password@localhost/circleci
 
 image_postgres: &image_postgres
   image: circleci/postgres:12
@@ -37,4 +39,9 @@ jobs:
       - run:
           name: Run tests
           command: |
-            pipenv run pytest
+            pytest
+
+workflows:
+  tests:
+    jobs:
+      - tests
