@@ -1,4 +1,4 @@
-# django-db-anoynmiser
+# django-db-anonymiser
 Django app to create configurable anonymised DB dumps.
 
 django-db-anonymiser provides a django app with a management command `dump_and_anonymise`.
