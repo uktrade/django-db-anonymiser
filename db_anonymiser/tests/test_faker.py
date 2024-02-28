@@ -4,7 +4,8 @@ from faker import Faker
 
 from db_anonymiser import faker as db_anonymiser_faker
 
-# Force faker to use a seed when producing output so that we can assume a 
+
+# Force faker to use a seed when producing output so that we can assume a
 # deterministic set of results
 @pytest.fixture(autouse=True)
 def seed_faker():
@@ -24,7 +25,10 @@ def test_sanitize_last_name():
 
 
 def test_sanitize_email():
-    assert db_anonymiser_faker.sanitize_email("bob.benson@example.net") == "areed@example.org"
+    assert (
+        db_anonymiser_faker.sanitize_email("bob.benson@example.net")
+        == "areed@example.org"
+    )
 
 
 def test_sanitize_company_name():
@@ -36,19 +40,31 @@ def test_sanitize_phone_number():
 
 
 def test_sanitize_address():
-    assert db_anonymiser_faker.sanitize_address("Madison Ave") == "Flat 4, Gibbons tunnel, Lesleystad, L8C 2EZ"
+    assert (
+        db_anonymiser_faker.sanitize_address("Madison Ave")
+        == "Flat 4, Gibbons tunnel, Lesleystad, L8C 2EZ"
+    )
 
 
 def test_sanitize_website():
-    assert db_anonymiser_faker.sanitize_website("sterling.cooper") == "reed-burton.arnold-jones.com"
+    assert (
+        db_anonymiser_faker.sanitize_website("sterling.cooper")
+        == "reed-burton.arnold-jones.com"
+    )
 
 
 def test_sanitize_text():
-    assert db_anonymiser_faker.sanitize_text("Not great, Bob.") == "Aliquam vitae laborum ullam rerum voluptas. Nesciunt tenetur magnam eligendi quidem nulla. Voluptates minus provident nobis corporis. Quas tempore placeat iusto. Explicabo et odit dignissimos."
+    assert (
+        db_anonymiser_faker.sanitize_text("Not great, Bob.")
+        == "Aliquam vitae laborum ullam rerum voluptas. Nesciunt tenetur magnam eligendi quidem nulla. Voluptates minus provident nobis corporis. Quas tempore placeat iusto. Explicabo et odit dignissimos."
+    )
 
 
 def test_sanitize_street_address():
-    assert db_anonymiser_faker.sanitize_street_address("Madison Ave") == "Studio 0\nArnold oval"
+    assert (
+        db_anonymiser_faker.sanitize_street_address("Madison Ave")
+        == "Studio 0\nArnold oval"
+    )
 
 
 def test_sanitize_city():
@@ -60,7 +76,9 @@ def test_sanitize_postcode():
 
 
 def test_sanitize_eori_number():
-    assert db_anonymiser_faker.sanitize_eori_number("GB111111111111") == "GB424533559245"
+    assert (
+        db_anonymiser_faker.sanitize_eori_number("GB111111111111") == "GB424533559245"
+    )
 
 
 def test_sanitize_sic_number():
