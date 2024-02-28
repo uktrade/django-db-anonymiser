@@ -65,3 +65,7 @@ def sanitize_vat_number(value):
 
 def sanitize_registration_number(value):
     return str(fake.random_number(digits=8))
+
+
+def sanitize_filename(value):
+    return fake.file_name()
