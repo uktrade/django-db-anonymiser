@@ -39,6 +39,10 @@ def sanitize_text(value):
     return fake.paragraph(nb_sentences=5)
 
 
+def sanitize_short_text(value):
+    return fake.text(max_nb_chars=100)
+
+
 def sanitize_street_address(value):
     return fake.street_address()
 

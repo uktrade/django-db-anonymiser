@@ -95,3 +95,10 @@ def test_sanitize_registration_number():
 
 def test_sanitize_filename():
     assert db_anonymiser_faker.sanitize_filename("somefile.txt") == "animi.js"
+
+
+def test_sanitize_short_text():
+    assert (
+        db_anonymiser_faker.sanitize_short_text("some small text")
+        == "Tempore placeat iusto aut. Et odit dignissimos mollitia ipsam maxime."
+    )
