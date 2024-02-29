@@ -1,0 +1,47 @@
+version: 2.1
+
+image_python: &image_python
+  image: cimg/python:3.8.18
+  environment:
+    DATABASE_URL: postgresql://postgres:password@localhost/circleci
+
+image_postgres: &image_postgres
+  image: circleci/postgres:12
+  environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: password
+
+commands:
+  install_os_libraries:
+    steps:
+      - run:
+          name: Install OS libraries
+          command: |
+            sudo apt-get update
+            sudo apt-get install libpq-dev
+
+  setup:
+    steps:
+      - checkout
+      - install_os_libraries
+      - run:
+          name: Install Dependencies
+          command: |
+            pip install -r requirements.txt
+jobs:
+  tests:
+    docker:
+      - <<: *image_python
+      - <<: *image_postgres
+    working_directory: ~/django-db-anonymiser
+    steps:
+      - setup
+      - run:
+          name: Run tests
+          command: |
+            pytest
+
+workflows:
+  tests:
+    jobs:
+      - tests
