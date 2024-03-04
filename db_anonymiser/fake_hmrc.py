@@ -1,6 +1,5 @@
-from faker import Faker
-
-fake = Faker("en-GB")
+# Methods to anonymise fields specified in model config yaml file
+#
 
 
 def sanitize_raw_data(value):
