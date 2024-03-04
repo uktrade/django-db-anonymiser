@@ -1,3 +1,5 @@
+import os
+
 from faker import Faker
 
 fake = Faker("en-GB")
@@ -72,4 +74,6 @@ def sanitize_registration_number(value):
 
 
 def sanitize_filename(value):
-    return fake.file_name()
+    return os.path.split(
+        fake.file_path(extension=["pdf", "jpg", "csv", "txt", "docx", "ods", "xlsx"])
+    )[-1]
