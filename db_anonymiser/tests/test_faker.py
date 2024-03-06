@@ -91,3 +91,14 @@ def test_sanitize_vat_number():
 
 def test_sanitize_registration_number():
     assert db_anonymiser_faker.sanitize_registration_number("11111111") == "51706749"
+
+
+def test_sanitize_filename():
+    assert db_anonymiser_faker.sanitize_filename("somefile.txt") == "molestiae.xlsx"
+
+
+def test_sanitize_short_text():
+    assert (
+        db_anonymiser_faker.sanitize_short_text("some small text")
+        == "Tempore placeat iusto aut. Et odit dignissimos mollitia ipsam maxime."
+    )

@@ -1,3 +1,5 @@
+import os
+
 from faker import Faker
 
 fake = Faker("en-GB")
@@ -39,6 +41,10 @@ def sanitize_text(value):
     return fake.paragraph(nb_sentences=5)
 
 
+def sanitize_short_text(value):
+    return fake.text(max_nb_chars=100)
+
+
 def sanitize_street_address(value):
     return fake.street_address()
 
@@ -65,3 +71,9 @@ def sanitize_vat_number(value):
 
 def sanitize_registration_number(value):
     return str(fake.random_number(digits=8))
+
+
+def sanitize_filename(value):
+    return os.path.split(
+        fake.file_path(extension=["pdf", "jpg", "csv", "txt", "docx", "ods", "xlsx"])
+    )[-1]
