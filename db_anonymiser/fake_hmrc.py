@@ -1,3 +1,5 @@
+import json
+
 # Methods to anonymise fields specified in model config yaml file
 #
 
@@ -15,4 +17,4 @@ def sanitize_sent_data(value):
 
 
 def sanitize_payload_data(value):
-    return "The licence payload json is replaced with this static text"
+    return json.dumps({"data": "The licence payload json is replaced with this data"})
