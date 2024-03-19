@@ -58,6 +58,7 @@ def test_sanitize_text():
         db_anonymiser_faker.sanitize_text("Not great, Bob.")
         == "Aliquam vitae laborum ullam rerum voluptas. Nesciunt tenetur magnam eligendi quidem nulla. Voluptates minus provident nobis corporis. Quas tempore placeat iusto. Explicabo et odit dignissimos."
     )
+    assert db_anonymiser_faker.sanitize_text(None) == None
 
 
 def test_sanitize_street_address():
@@ -102,3 +103,4 @@ def test_sanitize_short_text():
         db_anonymiser_faker.sanitize_short_text("some small text")
         == "Tempore placeat iusto aut. Et odit dignissimos mollitia ipsam maxime."
     )
+    assert db_anonymiser_faker.sanitize_short_text(None) == None

@@ -38,10 +38,14 @@ def sanitize_website(value):
 
 
 def sanitize_text(value):
+    if not value:
+        return value
     return fake.paragraph(nb_sentences=5)
 
 
 def sanitize_short_text(value):
+    if not value:
+        return value
     return fake.text(max_nb_chars=100)
 
 
