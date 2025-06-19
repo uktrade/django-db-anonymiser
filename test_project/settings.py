@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "db_anonymiser",
+    "django_db_anonymiser.db_anonymiser",
 ]
 
 MIDDLEWARE = [
