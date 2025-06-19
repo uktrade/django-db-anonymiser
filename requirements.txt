@@ -6,4 +6,7 @@ psycopg2-binary == 2.9.3
 moto[s3]
 pytest
 pytest-django
+pytest-cov
 django-environ
+mock>=2.0.0
+PyMySQL
