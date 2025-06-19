@@ -15,15 +15,19 @@ django-db-anonymiser follows the same overall pattern, but aims to achieve it
 through a django management command instead of running on top of airflow.  In addition,
 the configuration for how DB columns are anonymised can be configured in simple YAML.
 
+**Note:** This repository depends upon code forked from https://github.com/andersinno/python-database-sanitizer
+This is housed under the `database_sanitizer` directory and has been forked from the above repository 
+because it is unmaintained.
+
 ## Getting started
 
-- Add `database-sanitizer>=1.1.0`, `faker>=4.18.0`, `boto3>=1.26.17` to python requirements; it is assumed python/psycopg and co are already installed.
-- Add this github repository as a submodule to your django application
-- Add `db_anonymiser` to `INSTALLED_APPS`
+- Add `faker>=4.18.0`, `boto3>=1.26.17` to python requirements; it is assumed python/psycopg and co are already installed.
+- Add this github repository as a submodule to your django application named `django_db_anonymiser`
+- Add `django_db_anonymiser.db_anonymiser` to `INSTALLED_APPS`
 - Set the following django settings;
     - `DB_ANONYMISER_CONFIG_LOCATION` - the location of your anonymisation yaml file
     - `DB_ANONYMISER_AWS_ENDPOINT_URL` - optional, custom URL for AWS (e.g. if using minio)
     - `DB_ANONYMISER_AWS_ACCESS_KEY_ID` - AWS access key ID for the S3 bucket to upload dumps to
-    - `DB_ANONYMISER_AWS_SECRET_ACCESS_KEW` - AWS secret key for the S3 bucket to upload dumps to
+    - `DB_ANONYMISER_AWS_SECRET_ACCESS_KEY` - AWS secret key for the S3 bucket to upload dumps to
     - `DB_ANONYMISER_AWS_REGION` - AWS region for the S3 bucket to upload dumps to
     - `DB_ANONYMISER_AWS_STORAGE_BUCKET_NAME` - AWS bucket name for the S3 bucket to upload dumps to

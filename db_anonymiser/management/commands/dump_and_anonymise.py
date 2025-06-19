@@ -5,8 +5,8 @@ import boto3
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
-from database_sanitizer.config import Configuration
-from database_sanitizer.dump import run
+from django_db_anonymiser.database_sanitizer.config import Configuration
+from django_db_anonymiser.database_sanitizer.dump import run
 
 logger = logging.getLogger(__name__)
 
