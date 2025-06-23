@@ -9,10 +9,10 @@ from six.moves.urllib import parse as urlparse
 from .. import session
 
 SUPPORTED_DATABASE_MODULES = {
-    "mysql": "database_sanitizer.dump.mysql",
-    "postgres": "database_sanitizer.dump.postgres",
-    "postgresql": "database_sanitizer.dump.postgres",
-    "postgis": "database_sanitizer.dump.postgres",
+    "mysql": "django_db_anonymiser.database_sanitizer.dump.mysql",
+    "postgres": "django_db_anonymiser.database_sanitizer.dump.postgres",
+    "postgresql": "django_db_anonymiser.database_sanitizer.dump.postgres",
+    "postgis": "django_db_anonymiser.database_sanitizer.dump.postgres",
 }
 
 
