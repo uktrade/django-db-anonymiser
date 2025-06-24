@@ -22,8 +22,12 @@ class TestDumpAndAnonmyiseCommand(TransactionTestCase):
             },
         )
 
-    @patch("db_anonymiser.management.commands.dump_and_anonymise.run")
-    @patch("db_anonymiser.management.commands.dump_and_anonymise.Configuration")
+    @patch(
+        "django_db_anonymiser.db_anonymiser.management.commands.dump_and_anonymise.run"
+    )
+    @patch(
+        "django_db_anonymiser.db_anonymiser.management.commands.dump_and_anonymise.Configuration"
+    )
     def test_dump_and_anonymise_calls_anonymiser(
         self, mocked_configuration, mocked_anonymiser_run
     ):
@@ -47,7 +51,7 @@ class TestDumpAndAnonmyiseCommand(TransactionTestCase):
         user = User.objects.create(
             first_name="Bob",
             last_name="Benson",
-            email="bob.benson@example.net",
+            email="bob.benson@example.net",  # /PS-IGNORE
             username="bob.benson",
         )
         call_command(
@@ -68,14 +72,18 @@ class TestDumpAndAnonmyiseCommand(TransactionTestCase):
         ).get("Contents", [])
         assert bucket_contents[0]["Key"] == settings.DB_ANONYMISER_DUMP_FILE_NAME
 
-    @patch("db_anonymiser.management.commands.dump_and_anonymise.os.remove")
+    @patch(
+        "django_db_anonymiser.db_anonymiser.management.commands.dump_and_anonymise.os.remove"
+    )
     def test_dump_and_anonymise_clears_local_file(self, mocked_os_remove):
         call_command("dump_and_anonymise")
         mocked_os_remove.assert_called_with(
             f"/tmp/{settings.DB_ANONYMISER_DUMP_FILE_NAME}"
         )
 
-    @patch("db_anonymiser.management.commands.dump_and_anonymise.os.remove")
+    @patch(
+        "django_db_anonymiser.db_anonymiser.management.commands.dump_and_anonymise.os.remove"
+    )
     def test_dump_and_anonymise_keeps_local_file(self, mocked_os_remove):
         call_command("dump_and_anonymise", keep_local_dumpfile=True)
         assert not mocked_os_remove.called
