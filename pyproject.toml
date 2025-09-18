@@ -3,7 +3,7 @@ name = "django-db-anonymiser"
 version = "0.1.0"
 description = "Django app to create configurable anonymised DB dumps."
 authors = [
-    {name = "Your Name",email = "you@example.com"}
+    "Brendan Smith <brendan.smith@digital.trade.gov.uk>"
 ]
 readme = "README.md"
 requires-python = ">=3.9.1,<4"
