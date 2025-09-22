@@ -77,12 +77,14 @@ class Command(BaseCommand):
         logger.info(
             "Writing anonymised dumpfile to temporary location %s", self.dump_file_name
         )
+        
         with open(self.temporary_dump_location, "w") as outfile:
             run(
                 url=postgres_url,
                 config=Configuration.from_file(self.config_location),
                 output=outfile,
             )
+
         logger.info("Writing anonymised dumpfile complete")
 
     def write_to_s3(self):

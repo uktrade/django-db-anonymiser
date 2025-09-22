@@ -31,3 +31,12 @@ because it is unmaintained.
     - `DB_ANONYMISER_AWS_SECRET_ACCESS_KEY` - AWS secret key for the S3 bucket to upload dumps to
     - `DB_ANONYMISER_AWS_REGION` - AWS region for the S3 bucket to upload dumps to
     - `DB_ANONYMISER_AWS_STORAGE_BUCKET_NAME` - AWS bucket name for the S3 bucket to upload dumps to
+
+## Running tests
+
+For local unit testing from the root of the repository run:
+
+    $ poetry run pytest
+
+**Note:** Currently for full test coverage, it is necessary to run tests in circleci, where we spin up a postgres db and test
+the `db_anonymiser` command directly
