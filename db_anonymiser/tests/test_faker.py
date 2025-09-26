@@ -82,6 +82,16 @@ def test_sanitize_eori_number():
     )
 
 
+def test_sanitize_ni_eori_number():
+    assert (
+        db_anonymiser_faker.sanitize_ni_eori_number("XI111111111111") == "XI424533559245"
+    )
+
+def test_sanitize_eu_eori_number():
+    assert (
+        db_anonymiser_faker.sanitize_eu_eori_number("FR11111") == "FR99346"
+    )
+
 def test_sanitize_sic_number():
     assert db_anonymiser_faker.sanitize_sic_number("11111") == "50494"
 

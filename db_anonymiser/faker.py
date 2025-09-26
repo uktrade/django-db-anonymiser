@@ -64,6 +64,14 @@ def sanitize_postcode(value):
 def sanitize_eori_number(value):
     return "GB" + str(fake.random_number(digits=12))
 
+def sanitize_ni_eori_number(value):
+    return "XI" + str(fake.random_number(digits=12))
+
+def sanitize_eu_eori_number(value):
+    eu_countries = ["LU","BE", "FI", "FR", "CZ"]
+    return fake.random_element(eu_countries) + str(fake.random_number(digits=5))
+
+
 
 def sanitize_sic_number(value):
     return str(fake.random_number(digits=5))
