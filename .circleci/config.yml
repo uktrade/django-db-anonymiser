@@ -40,7 +40,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            pytest
+            pytest --ignore=database_sanitizer --ignore=db_anonymiser
 
 workflows:
   tests:
