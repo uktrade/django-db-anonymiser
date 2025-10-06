@@ -22,7 +22,7 @@ because it is unmaintained.
 ## Getting started
 
 - Add `faker>=4.18.0`, `boto3>=1.26.17` to python requirements; it is assumed python/psycopg and co are already installed.
-- Either add this github repository as a submodule to your django application named `django_db_anonymiser` or install the python package (django-db-anonymiser)[] from PyPI.
+- Either add this github repository as a submodule to your django application named `django_db_anonymiser` or install the python package (django-db-anonymiser)[https://pypi.org/project/django-db-anonymiser/] from PyPI.
 - Add `django_db_anonymiser.db_anonymiser` to `INSTALLED_APPS`
 - Set the following django settings;
     - `DB_ANONYMISER_CONFIG_LOCATION` - the location of your anonymisation yaml file
