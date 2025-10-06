@@ -1,5 +1,4 @@
 import os
-from datetime import datetime
 from unittest.mock import patch
 
 from django.conf import settings
@@ -8,9 +7,11 @@ from django.core.management import call_command
 from django.test import TransactionTestCase
 
 import boto3
+import pytest
 from moto import mock_aws
 
 
+@pytest.mark.skipif(os.getenv("CIRCLECI") != "true", reason="Skipped because test requires real postgres db.")
 @mock_aws
 class TestDumpAndAnonmyiseCommand(TransactionTestCase):
     def setUp(self):

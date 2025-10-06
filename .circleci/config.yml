@@ -28,12 +28,7 @@ commands:
           name: Install Dependencies
           command: |
             pip install -r requirements.txt
-      - run:
-          name: House code in package directory
-          command: |
-            mkdir django_db_anonymiser
-            mv database_sanitizer django_db_anonymiser
-            mv db_anonymiser django_db_anonymiser
+
 jobs:
   tests:
     docker:
@@ -45,7 +40,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            pytest
+            pytest --ignore=database_sanitizer --ignore=db_anonymiser
 
 workflows:
   tests:
