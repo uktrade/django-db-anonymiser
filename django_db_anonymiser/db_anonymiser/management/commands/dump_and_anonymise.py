@@ -109,7 +109,7 @@ class Command(BaseCommand):
         presigned = self.s3_client.generate_presigned_url(
             'get_object',
             Params={'Bucket': self.s3_bucket_name, 'Key': self.dump_file_name},
-            ExpiresIn=3600
+            ExpiresIn=600
         )
         logger.info("Presigned URL: %s", presigned)
         return presigned
