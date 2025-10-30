@@ -8,6 +8,7 @@ from django.test import TransactionTestCase
 
 import boto3
 import pytest
+import requests
 from moto import mock_aws
 
 
@@ -88,3 +89,32 @@ class TestDumpAndAnonmyiseCommand(TransactionTestCase):
     def test_dump_and_anonymise_keeps_local_file(self, mocked_os_remove):
         call_command("dump_and_anonymise", keep_local_dumpfile=True)
         assert not mocked_os_remove.called
+
+    @patch("django_db_anonymiser.db_anonymiser.management.commands.dump_and_anonymise.Command.generate_presigned_url")
+    @patch(
+        "django_db_anonymiser.db_anonymiser.management.commands.dump_and_anonymise.os.remove"
+    )
+    def test_dump_and_anonymise_no_arguments(self, mocked_os_remove, mocked_presign, caplog):
+        call_command("dump_and_anonymise")
+        bucket_contents = self.aws.list_objects(
+            Bucket=settings.DB_ANONYMISER_AWS_STORAGE_BUCKET_NAME
+        ).get("Contents", [])
+        assert bucket_contents[0]["Key"] == settings.DB_ANONYMISER_DUMP_FILE_NAME
+        mocked_os_remove.assert_called_with(
+            f"/tmp/{settings.DB_ANONYMISER_DUMP_FILE_NAME}"
+        )
+        mocked_presign.assert_not_called()
+        assert "DB dump and anonymiser was successful!" in caplog.text
+        assert "Writing anonymised dumpfile to temporary location" in caplog.text
+        assert "Writing file to S3 complete" in caplog.text
+
+    def test_dump_and_anonymise_with_presign(self, caplog):
+        call_command("dump_and_anonymise", presign=True)
+        bucket_contents = self.aws.list_objects(
+            Bucket=settings.DB_ANONYMISER_AWS_STORAGE_BUCKET_NAME
+        ).get("Contents", [])
+        assert bucket_contents[0]["Key"] == settings.DB_ANONYMISER_DUMP_FILE_NAME
+        assert "Presigned URL:" in caplog.text
+        presigned_url = caplog.text.split("Presigned URL: ")[1].splitlines()[0]
+        assert requests.get(presigned_url).status_code == 200
+        
