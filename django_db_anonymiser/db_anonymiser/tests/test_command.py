@@ -118,5 +118,5 @@ class TestDumpAndAnonmyiseCommand(TransactionTestCase):
         ).get("Contents", [])
         assert bucket_contents[0]["Key"] == settings.DB_ANONYMISER_DUMP_FILE_NAME
         mocked_logger.info.assert_any_call("Presigned URL: %s", ANY)
-        presigned_url = mocked_logger.info.call_args_list[4][0][1]
+        presigned_url = mocked_logger.info.call_args_list[6][0][1]
         assert requests.get(presigned_url).status_code == 200
