@@ -1,4 +1,5 @@
 import os
+from unittest.mock import ANY
 from unittest.mock import patch
 
 from django.conf import settings
@@ -90,11 +91,12 @@ class TestDumpAndAnonmyiseCommand(TransactionTestCase):
         call_command("dump_and_anonymise", keep_local_dumpfile=True)
         assert not mocked_os_remove.called
 
+    @patch("django_db_anonymiser.db_anonymiser.management.commands.dump_and_anonymise.logger")
     @patch("django_db_anonymiser.db_anonymiser.management.commands.dump_and_anonymise.Command.generate_presigned_url")
     @patch(
         "django_db_anonymiser.db_anonymiser.management.commands.dump_and_anonymise.os.remove"
     )
-    def test_dump_and_anonymise_no_arguments(self, caplog, mocked_os_remove, mocked_presign):
+    def test_dump_and_anonymise_no_arguments(self, mocked_os_remove, mocked_presign, mocked_logger):
         call_command("dump_and_anonymise")
         bucket_contents = self.aws.list_objects(
             Bucket=settings.DB_ANONYMISER_AWS_STORAGE_BUCKET_NAME
@@ -104,17 +106,17 @@ class TestDumpAndAnonmyiseCommand(TransactionTestCase):
             f"/tmp/{settings.DB_ANONYMISER_DUMP_FILE_NAME}"
         )
         mocked_presign.assert_not_called()
-        assert "DB dump and anonymiser was successful!" in caplog.text
-        assert "Writing anonymised dumpfile to temporary location" in caplog.text
-        assert "Writing file to S3 complete" in caplog.text
+        mocked_logger.info.assert_any_call("DB dump and anonymiser was successful!")
+        mocked_logger.info.assert_any_call("Writing anonymised dumpfile to temporary location %s", settings.DB_ANONYMISER_DUMP_FILE_NAME)
+        mocked_logger.info.assert_any_call("Writing file to S3 complete")
 
-    def test_dump_and_anonymise_with_presign(self, caplog):
+    @patch("django_db_anonymiser.db_anonymiser.management.commands.dump_and_anonymise.logger")
+    def test_dump_and_anonymise_with_presign(self, mocked_logger):
         call_command("dump_and_anonymise", presign=True)
         bucket_contents = self.aws.list_objects(
             Bucket=settings.DB_ANONYMISER_AWS_STORAGE_BUCKET_NAME
         ).get("Contents", [])
         assert bucket_contents[0]["Key"] == settings.DB_ANONYMISER_DUMP_FILE_NAME
-        assert "Presigned URL:" in caplog.text
+        mocked_logger.info.assert_any_call("Presigned URL: %s", ANY)
         presigned_url = caplog.text.split("Presigned URL: ")[1].splitlines()[0]
         assert requests.get(presigned_url).status_code == 200
-        
