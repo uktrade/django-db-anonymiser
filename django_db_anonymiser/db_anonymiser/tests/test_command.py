@@ -94,7 +94,7 @@ class TestDumpAndAnonmyiseCommand(TransactionTestCase):
     @patch(
         "django_db_anonymiser.db_anonymiser.management.commands.dump_and_anonymise.os.remove"
     )
-    def test_dump_and_anonymise_no_arguments(self, mocked_os_remove, mocked_presign, caplog):
+    def test_dump_and_anonymise_no_arguments(self, caplog, mocked_os_remove, mocked_presign):
         call_command("dump_and_anonymise")
         bucket_contents = self.aws.list_objects(
             Bucket=settings.DB_ANONYMISER_AWS_STORAGE_BUCKET_NAME
