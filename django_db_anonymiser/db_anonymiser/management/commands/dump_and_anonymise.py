@@ -112,7 +112,6 @@ class Command(BaseCommand):
             ExpiresIn=600
         )
         logger.info("Presigned URL: %s", presigned)
-        return presigned
 
     def cleanup(self):
         if self.keep_local_dumpfile:
