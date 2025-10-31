@@ -26,7 +26,7 @@ class Command(BaseCommand):
         parser.add_argument(
             "--presign",
             action="store_true",
-            help="Generates a presigned URL for the uploaded file.",
+            help="Generates and logs a presigned URL for the uploaded file.",
         )
 
     def configure(self):
