@@ -36,7 +36,7 @@ because it is unmaintained.
 
 For local unit testing from the root of the repository run:
 
-    $ poetry run pytest
+    $ poetry run pytest django_db_anonymiser
 
 **Note:** Currently for full test coverage, it is necessary to run tests in circleci, where we spin up a postgres db and test
 the `db_anonymiser` command directly

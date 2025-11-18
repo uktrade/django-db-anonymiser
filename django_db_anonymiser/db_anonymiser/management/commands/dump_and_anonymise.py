@@ -23,10 +23,16 @@ class Command(BaseCommand):
             action="store_true",
             help="Skip uploading to S3.",
         )
+        parser.add_argument(
+            "--presign",
+            action="store_true",
+            help="Generates and logs a presigned URL for the uploaded file.",
+        )
 
     def configure(self):
         self.keep_local_dumpfile = False
         self.skip_s3_upload = False
+        self.presign = False
         self.dump_file_name = settings.DB_ANONYMISER_DUMP_FILE_NAME
         self.temporary_dump_location = getattr(
             settings,
@@ -63,11 +69,16 @@ class Command(BaseCommand):
 
         if options["skip_s3_upload"]:
             self.skip_s3_upload = True
+        
+        if options["presign"]:
+            self.presign = True
 
         try:
             self.dump_anonymised_db()
             self.write_to_s3()
             logger.info("DB dump and anonymiser was successful!")
+            if self.presign:
+                self.generate_presigned_url()
         finally:
             self.cleanup()
 
@@ -93,6 +104,14 @@ class Command(BaseCommand):
             self.temporary_dump_location, self.s3_bucket_name, self.dump_file_name
         )
         logger.info("Writing file to S3 complete")
+    
+    def generate_presigned_url(self):
+        presigned = self.s3_client.generate_presigned_url(
+            'get_object',
+            Params={'Bucket': self.s3_bucket_name, 'Key': self.dump_file_name},
+            ExpiresIn=600
+        )
+        logger.info("Presigned URL: %s", presigned)
 
     def cleanup(self):
         if self.keep_local_dumpfile:
