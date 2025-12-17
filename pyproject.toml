@@ -1,9 +1,9 @@
 [tool.poetry]
 name = "django-db-anonymiser"
-version = "0.2.3"
+version = "0.2.4"
 description = "Django app to create configurable anonymised DB dumps."
 authors = [
-    "Brendan Smith <brendan.smith@digital.trade.gov.uk>"
+    "Brendan Smith <brendan.smith@digital.trade.gov.uk>" # /PS-IGNORE
 ]
 readme = "README.md"
 packages = [
