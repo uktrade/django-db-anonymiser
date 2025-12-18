@@ -17,7 +17,7 @@ This checklist is designed to make it easier to improve the security posture of 
 - [X] [Review the GitHub CI/CD overview](#review-the-github-cicd-overview)
 - [X] [Review the GitHub Safety Tips](#review-github-safety-tips)
 - [X] [Add Steward to Repository access](#add-at-least-one-steward-to-repository-access)
-- [ ] [Review and limit maintainers with admin rights to the strict minimum](#review-and-limit-maintainers-with-admin-rights-to-the-strict-minimum)
+- [X] [Review and limit maintainers with admin rights to the strict minimum](#review-and-limit-maintainers-with-admin-rights-to-the-strict-minimum)
 - [X] [Review the Pull Request template](#review-pull-request-template)
 - [X] [Review the SECURITY.md policy](#review-securitymd-policy)
 
@@ -114,6 +114,6 @@ This repository contain the SECURITY.md file, which is inherited by all reposito
 
 ## More information
 
-For more information about GitHub security standards, please refer [to this link](https://dbis.sharepoint.com/:w:/r/sites/DDaTDirectorate/Shared%20Documents/Work%20-%20GitHub%20Security/Github%20Security%20Framework/Guidelines%20and%20Policies/GitHub%20Security%20Standards%20v0.5.docx?d=wb29cd9b99ca042deb5c0cd8d670966d9&csf=1&web=1&e=6ITbnL)
+For more information about GitHub security standards, please refer [to this link](https://dbis.sharepoint.com/:w:/r/sites/DDaTDirectorate/Shared%20Documents/Work%20-%20GitHub%20Security/Github%20Security%20Framework/Guidelines%20and%20Policies/GitHub%20Security%20Standards%20v0.5.docx?d=wb29cd9b99ca042deb5c0cd8d670966d9&csf=1&web=1&e=6ITbnL) <!-- /PS-IGNORE -->
 
 For more details about the security features please refer to the [GitHub Standards](https://github.com/uktrade/github-standards) repo.
