@@ -47,7 +47,7 @@ repos:
           #  verbose: true
           #  require_serial: true
     - repo: https://github.com/uktrade/github-standards
-      rev: v1.2.1 # This should be the latest github released tag, see https://github.com/uktrade/github-standards/releases for the latest tag
+      rev: v1.3.0 # This should be the latest github released tag, see https://github.com/uktrade/github-standards/releases for the latest tag
       hooks:
         - id: validate-security-scan
           args: [-v] # This is helpful for debugging the hook logic, the output is shown in the git output
