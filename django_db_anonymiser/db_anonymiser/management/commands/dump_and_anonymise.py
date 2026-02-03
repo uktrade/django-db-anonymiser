@@ -52,7 +52,7 @@ class Command(BaseCommand):
         self.temporary_dump_location = getattr(
             settings,
             "DB_ANONYMISER_TEMPORARY_DUMP_LOCATION",
-            f"/tmp/{self.dump_file_name}",
+            f"/tmp/{base_dump_file_name}",
         )
         try:
             self.config_location = settings.DB_ANONYMISER_CONFIG_LOCATION
