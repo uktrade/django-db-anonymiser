@@ -43,7 +43,7 @@ class Command(BaseCommand):
         if self.add_timestamp:
             now = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
             dump_file_name = f"{now}-{dump_file_name}"
-        if settings.DB_ANONYMISER_AWS_STORAGE_KEY:
+        if getattr(settings, "DB_ANONYMISER_AWS_STORAGE_KEY", None):
             dump_file_name = (
                 f"{settings.DB_ANONYMISER_AWS_STORAGE_KEY}/{dump_file_name}"
             )

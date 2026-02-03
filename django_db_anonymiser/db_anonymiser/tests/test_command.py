@@ -152,10 +152,8 @@ class TestDumpAndAnonmyiseCommand(TransactionTestCase):
         )
 
     def test_dump_and_anonymise_with_s3_key(self):
-        with patch(
-            "django.conf.settings.DB_ANONYMISER_AWS_STORAGE_KEY", return_value="test"
-        ):
-            call_command("dump_and_anonymise")
+        settings.DB_ANONYMISER_AWS_STORAGE_KEY = "test"
+        call_command("dump_and_anonymise")
         bucket_contents = self.aws.list_objects(
             Bucket=settings.DB_ANONYMISER_AWS_STORAGE_BUCKET_NAME
         ).get("Contents", [])
