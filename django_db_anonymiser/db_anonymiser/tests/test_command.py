@@ -6,7 +6,7 @@ from unittest.mock import patch
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.management import call_command
-from django.test import TransactionTestCase
+from django.test import override_settings, TransactionTestCase
 
 import boto3
 import pytest
@@ -151,8 +151,8 @@ class TestDumpAndAnonmyiseCommand(TransactionTestCase):
             == f"{now.strftime('%Y-%m-%d-%H:%M:%S')}-{settings.DB_ANONYMISER_DUMP_FILE_NAME}"
         )
 
+    @override_settings(DB_ANONYMISER_AWS_STORAGE_KEY="test")
     def test_dump_and_anonymise_with_s3_key(self):
-        settings.DB_ANONYMISER_AWS_STORAGE_KEY = "test"
         call_command("dump_and_anonymise")
         bucket_contents = self.aws.list_objects(
             Bucket=settings.DB_ANONYMISER_AWS_STORAGE_BUCKET_NAME
