@@ -1,5 +1,6 @@
 import os
 import logging
+from datetime import datetime
 
 import boto3
 from django.conf import settings
@@ -28,12 +29,25 @@ class Command(BaseCommand):
             action="store_true",
             help="Generates and logs a presigned URL for the uploaded file.",
         )
+        parser.add_argument(
+            "--add-timestamp",
+            action="store_true",
+            help="Add current timestamp to dump file name.",
+        )
 
     def configure(self):
         self.keep_local_dumpfile = False
         self.skip_s3_upload = False
         self.presign = False
-        self.dump_file_name = settings.DB_ANONYMISER_DUMP_FILE_NAME
+        dump_file_name = settings.DB_ANONYMISER_DUMP_FILE_NAME
+        if self.add_timestamp:
+            now = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
+            dump_file_name = f"{now}-{dump_file_name}"
+        if settings.DB_ANONYMISER_AWS_STORAGE_KEY:
+            dump_file_name = (
+                f"{settings.DB_ANONYMISER_AWS_STORAGE_KEY}/{dump_file_name}"
+            )
+        self.dump_file_name = dump_file_name
         self.temporary_dump_location = getattr(
             settings,
             "DB_ANONYMISER_TEMPORARY_DUMP_LOCATION",
@@ -69,7 +83,7 @@ class Command(BaseCommand):
 
         if options["skip_s3_upload"]:
             self.skip_s3_upload = True
-        
+
         if options["presign"]:
             self.presign = True
 
@@ -104,12 +118,12 @@ class Command(BaseCommand):
             self.temporary_dump_location, self.s3_bucket_name, self.dump_file_name
         )
         logger.info("Writing file to S3 complete")
-    
+
     def generate_presigned_url(self):
         presigned = self.s3_client.generate_presigned_url(
-            'get_object',
-            Params={'Bucket': self.s3_bucket_name, 'Key': self.dump_file_name},
-            ExpiresIn=600
+            "get_object",
+            Params={"Bucket": self.s3_bucket_name, "Key": self.dump_file_name},
+            ExpiresIn=600,
         )
         logger.info("Presigned URL: %s", presigned)
 
