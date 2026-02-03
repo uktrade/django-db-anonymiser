@@ -150,3 +150,15 @@ class TestDumpAndAnonmyiseCommand(TransactionTestCase):
             bucket_contents[0]["Key"]
             == f"{now.strftime('%Y-%m-%d-%H:%M:%S')}-{settings.DB_ANONYMISER_DUMP_FILE_NAME}"
         )
+
+    def test_dump_and_anonymise_with_s3_key(self):
+        with patch(
+            "django.conf.settings.DB_ANONYMISER_AWS_STORAGE_KEY", return_value="test"
+        ):
+            call_command("dump_and_anonymise")
+        bucket_contents = self.aws.list_objects(
+            Bucket=settings.DB_ANONYMISER_AWS_STORAGE_BUCKET_NAME
+        ).get("Contents", [])
+        assert (
+            bucket_contents[0]["Key"] == f"test/{settings.DB_ANONYMISER_DUMP_FILE_NAME}"
+        )
