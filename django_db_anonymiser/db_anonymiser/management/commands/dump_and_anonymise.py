@@ -87,6 +87,9 @@ class Command(BaseCommand):
         if options["presign"]:
             self.presign = True
 
+        if options["add_timestamp"]:
+            self.add_timestamp = True
+
         try:
             self.dump_anonymised_db()
             self.write_to_s3()
