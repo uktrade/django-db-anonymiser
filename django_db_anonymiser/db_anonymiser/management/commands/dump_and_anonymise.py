@@ -39,10 +39,11 @@ class Command(BaseCommand):
         self.keep_local_dumpfile = False
         self.skip_s3_upload = False
         self.presign = False
-        dump_file_name = settings.DB_ANONYMISER_DUMP_FILE_NAME
+        base_dump_file_name = settings.DB_ANONYMISER_DUMP_FILE_NAME
         if self.add_timestamp:
             now = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
-            dump_file_name = f"{now}-{dump_file_name}"
+            base_dump_file_name = f"{now}-{base_dump_file_name}"
+        dump_file_name = base_dump_file_name
         if getattr(settings, "DB_ANONYMISER_AWS_STORAGE_KEY", None):
             dump_file_name = (
                 f"{settings.DB_ANONYMISER_AWS_STORAGE_KEY}/{dump_file_name}"
