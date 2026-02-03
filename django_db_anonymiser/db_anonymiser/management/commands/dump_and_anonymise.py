@@ -77,6 +77,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         logger.info("Starting DB dump and anonymiser")
 
+        self.add_timestamp = False
         if options["add_timestamp"]:
             self.add_timestamp = True
 
