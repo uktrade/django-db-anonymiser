@@ -76,6 +76,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         logger.info("Starting DB dump and anonymiser")
+
+        if options["add_timestamp"]:
+            self.add_timestamp = True
+
         self.configure()
 
         if options["keep_local_dumpfile"]:
@@ -86,9 +90,6 @@ class Command(BaseCommand):
 
         if options["presign"]:
             self.presign = True
-
-        if options["add_timestamp"]:
-            self.add_timestamp = True
 
         try:
             self.dump_anonymised_db()
