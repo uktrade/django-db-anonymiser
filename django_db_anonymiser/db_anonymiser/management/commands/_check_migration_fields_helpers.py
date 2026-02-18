@@ -6,9 +6,10 @@ import yaml
 
 
 def get_diff_content():
-    """
-    Check for staged migration files and
-    return diff content, if it exists.
+    """Get differences.
+
+    Check for staged migration files and return diff content,
+    if it exists.
     """
     result = subprocess.run(  # nosec B603
         shlex.split("git diff --cached --name-only"),
