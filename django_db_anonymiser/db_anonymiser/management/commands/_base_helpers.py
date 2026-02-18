@@ -5,8 +5,6 @@ from abc import ABC, abstractmethod
 
 from django.core.management.base import BaseCommand
 
-ETL_DATA_DIR = os.getenv("ETL_DATA_DIR", "prompt_payments/tests/data/")
-
 
 class WriterBase(ABC):
     @abstractmethod
