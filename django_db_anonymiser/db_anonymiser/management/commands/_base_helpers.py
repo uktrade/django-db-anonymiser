@@ -35,7 +35,7 @@ def make_writers(handler: BaseCommand):
     using the relevant styles.
     """
 
-    class Writer:
+    class Writer(WriterBase):
         info = functools.partial(
             handler.stdout.write, style_func=handler.style.MIGRATE_HEADING
         )
