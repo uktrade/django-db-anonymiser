@@ -5,12 +5,7 @@ import subprocess  # nosec B404
 import yaml
 
 
-def extract_new_fields():
-    """Extract model and field names.
-
-    Extract model and field names from AddField operations in
-    staged migrations.
-    """
+def get_diff_content():
     result = subprocess.run(  # nosec B603
         shlex.split("git diff --cached --name-only"),
         capture_output=True,
@@ -31,15 +26,29 @@ def extract_new_fields():
         check=True,
         shell=False,
     )
-    diff_content = diff_result.stdout
-    # Extract all model_name and field name pairs from AddField operations
-    pattern = (
+    return diff_result.stdout
+
+
+def extract_new_fields(diff_content):
+    """Extract model and field names.
+    Extract model and field names from AddField operations in
+    staged migrations.
+    """
+    add_field_pattern = (
         r"migrations\.AddField\([^)]*"
         r"model_name\s*=\s*['\"](\w+)['\"]"
         r"[^)]*name\s*=\s*['\"](\w+)['\"]"
     )
-    matches = re.findall(pattern, diff_content, re.DOTALL)
-    return matches
+    return re.findall(add_field_pattern, diff_content, re.DOTALL)
+
+
+def extract_new_models(diff_content):
+    """Extract model names from CreateModel operations."""
+    return re.findall(
+        r"migrations\.CreateModel\(.*?name\s*=\s*['\"](\w+)['\"]",
+        diff_content,
+        re.DOTALL,
+    )
 
 
 def check_fields_in_config(new_fields, config_path, writer):
