@@ -35,6 +35,7 @@ def get_diff_content():
 
 def extract_new_fields(diff_content):
     """Extract model and field names.
+
     Extract model and field names from AddField operations in
     staged migrations.
     """
