@@ -77,3 +77,19 @@ poetry publish
 Check the [PyPI Release history](https://pypi.org/project/django-db-anonymiser/#history) to make sure the package has been updated.
 
 For an optional manual check, install the package locally and test everything works as expected.
+
+## Checking migration fields
+
+After installing the package in your project, we recommend setting up a pre-commit hook to run the `check_migration_fields` command. For example:
+
+```yaml
+repo: local
+hooks:
+-   id: check-migration-fields
+    name: Check new fields added to anonymiser config
+    entry: python manage.py check_migration_fields
+    language: system
+    pass_filenames: false
+```
+
+This command checks staged files for DB migrations. If a migration file introduces new model fields, it then checks the file at `DB_ANONYMISER_CONFIG_LOCATION` to see whether these new fields have been added there. If the fields are not in the config, the command will prompt the user to confirm that the new fields do not represent any sensitive user data.
