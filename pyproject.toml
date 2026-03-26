@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-db-anonymiser"
-version = "0.4.2"
+version = "0.5.0"
 description = "Django app to create configurable anonymised DB dumps."
 authors = [
     "Brendan Smith <brendan.smith@digital.trade.gov.uk>" # /PS-IGNORE
@@ -16,7 +16,7 @@ boto3 = "^1.40.33"
 psycopg2-binary = "^2.9.10"
 django-environ = "^0.12.0"
 pymysql = "^1.1.2"
-django = "^4.2.10"
+django = ">=4.2.10,<6.0"
 faker = ">=4.18.0"
 pyyaml = "6.0.2"
 
