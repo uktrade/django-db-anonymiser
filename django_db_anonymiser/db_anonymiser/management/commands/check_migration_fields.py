@@ -39,14 +39,3 @@ class Command(BaseCommand):
             writer.warning(
                 "Please ensure any sensitive fields are added to the anonymiser config."
             )
-        if missing_fields or new_models:
-            response = input("Are you happy to proceed? (y/n): ").strip().lower()
-            if response == "y":
-                writer.success("\n✓ Proceeding with commit.\n")
-                return
-            elif response == "n":
-                writer.error("\n❌ Commit blocked.\n")
-                sys.exit(1)
-            else:
-                writer.error("\n❌ Invalid response. Commit blocked.\n")
-                sys.exit(1)

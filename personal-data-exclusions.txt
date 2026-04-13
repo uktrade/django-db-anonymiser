@@ -1,0 +1,4 @@
+/src/django_db_anonymiser/db_anonymiser/tests/test_faker.py
+/src/django_db_anonymiser/db_anonymiser/tests/test_command.py
+/src/django_db_anonymiser/database_sanitizer/tests/test_sanitizers_user.py
+/src/pyproject.toml
