@@ -26,10 +26,6 @@ jobs:
     env:
       DATABASE_URL: postgresql://postgres:password@localhost:5432/postgres
 
-    defaults:
-      run:
-        working-directory: django-db-anonymiser
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
