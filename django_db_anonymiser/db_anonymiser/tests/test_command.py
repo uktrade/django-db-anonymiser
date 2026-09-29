@@ -15,7 +15,7 @@ from moto import mock_aws
 
 
 @pytest.mark.skipif(
-    os.getenv("CIRCLECI") != "true",
+    os.getenv("GITHUB_ACTIONS") != "true",
     reason="Skipped because test requires real postgres db.",
 )
 @mock_aws
