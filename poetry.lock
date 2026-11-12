@@ -175,6 +175,7 @@ description = "Validate configuration and produce human readable error messages.
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
+markers = "python_version >= \"3.11\""
 files = [
     {file = "cfgv-3.5.0-py2.py3-none-any.whl", hash = "sha256:a8dc6b26ad22ff227d2634a65cb388215ce6cc96bbcc5cfde7641ae87e8dacc0"},
     {file = "cfgv-3.5.0.tar.gz", hash = "sha256:d5b1034354820651caa73ede66a6294d6e95c1b00acc5e9b098e917404669132"},
@@ -456,6 +457,7 @@ description = "Distribution utilities"
 optional = false
 python-versions = "*"
 groups = ["dev"]
+markers = "python_version >= \"3.11\""
 files = [
     {file = "distlib-0.4.4-py2.py3-none-any.whl", hash = "sha256:cf09d55b1e85a89576b036aeb71550bfd68320f3f21761ca329eadadad918638"},
     {file = "distlib-0.4.4.tar.gz", hash = "sha256:ca4175b4ac7f71223cc30ed7248c45d2b38c2439d8ee6e498ab67ed63cf3508d"},
@@ -535,14 +537,15 @@ tzdata = "*"
 
 [[package]]
 name = "filelock"
-version = "4.1.0"
+version = "4.2.10"
 description = "A platform independent file lock."
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.11"
 groups = ["dev"]
+markers = "python_version >= \"3.11\""
 files = [
-    {file = "filelock-4.1.0-py3-none-any.whl", hash = "sha256:2ce9818e3e2d8f284c1a964414447ef148d42a5fd5e2a477a7118e574b293ec1"},
-    {file = "filelock-4.1.0.tar.gz", hash = "sha256:ad7f724afef953e731b1cc39bcd3a09166d72ed7fcdf29e6e88b1c3235c6715d"},
+    {file = "filelock-4.2.10-py3-none-any.whl", hash = "sha256:9479aaeb4db20b5a53e3da28493edd24720b66b8a0b84030aa56ccdf243d6857"},
+    {file = "filelock-4.2.10.tar.gz", hash = "sha256:fcc3c0cb8bfe7f4b3bb0e231c04b15dbad068cb3c2515f343d8fde4dce93bd5d"},
 ]
 
 [[package]]
@@ -552,6 +555,7 @@ description = "File identification library for Python"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
+markers = "python_version >= \"3.11\""
 files = [
     {file = "identify-2.6.15-py2.py3-none-any.whl", hash = "sha256:1181ef7608e00704db228516541eb83a88a9f94433a8c80bb9b5bd54b1d81757"},
     {file = "identify-2.6.15.tar.gz", hash = "sha256:e4f4864b96c6557ef2a1e1c951771838f4edc9df3a72ec7118b338801b11c7bf"},
@@ -623,7 +627,7 @@ version = "3.0.2"
 description = "Safely add untrusted strings to HTML/XML markup."
 optional = false
 python-versions = ">=3.9"
-groups = ["dev", "test"]
+groups = ["test"]
 files = [
     {file = "MarkupSafe-3.0.2-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:7e94c425039cde14257288fd61dcfb01963e658efbc0ff54f5306b06054700f8"},
     {file = "MarkupSafe-3.0.2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:9e2d922824181480953426608b81967de705c3cef4d1af983af849d7bd619158"},
@@ -760,6 +764,7 @@ description = "Node.js virtual environment builder"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
 groups = ["dev"]
+markers = "python_version >= \"3.11\""
 files = [
     {file = "nodeenv-1.9.1-py2.py3-none-any.whl", hash = "sha256:ba11c9782d29c27c70ffbdda2d7415098754709be8a7056d79a737cd901155c9"},
     {file = "nodeenv-1.9.1.tar.gz", hash = "sha256:6ec12890a2dab7946721edbfbcd91f3319c6ccc9aec47be7c7e6b7011ee6645f"},
@@ -776,6 +781,7 @@ files = [
     {file = "packaging-26.3-py3-none-any.whl", hash = "sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"},
     {file = "packaging-26.3.tar.gz", hash = "sha256:94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79"},
 ]
+markers = {dev = "python_version >= \"3.11\""}
 
 [[package]]
 name = "platformdirs"
@@ -784,6 +790,7 @@ description = "A small Python package for determining appropriate platform-speci
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
+markers = "python_version >= \"3.11\""
 files = [
     {file = "platformdirs-4.5.1-py3-none-any.whl", hash = "sha256:d03afa3963c806a9bed9d5125c8f4cb2fdaf74a55ab60e5d59b3fde758104d31"},
     {file = "platformdirs-4.5.1.tar.gz", hash = "sha256:61d5cdcc6065745cdd94f0f878977f8de9437be93de97c1c12f853c9c0cdcbda"},
@@ -812,14 +819,15 @@ testing = ["coverage", "pytest", "pytest-benchmark"]
 
 [[package]]
 name = "pre-commit"
-version = "4.5.0"
+version = "4.7.0"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.11"
 groups = ["dev"]
+markers = "python_version >= \"3.11\""
 files = [
-    {file = "pre_commit-4.5.0-py2.py3-none-any.whl", hash = "sha256:25e2ce09595174d9c97860a95609f9f852c0614ba602de3561e267547f2335e1"},
-    {file = "pre_commit-4.5.0.tar.gz", hash = "sha256:dc5a065e932b19fc1d4c653c6939068fe54325af8e741e74e88db4d28a4dd66b"},
+    {file = "pre_commit-4.7.0-py2.py3-none-any.whl", hash = "sha256:2e229038ad3656081b70c27913157e4b636ef306f643f024a8a8e3f0f7b2f877"},
+    {file = "pre_commit-4.7.0.tar.gz", hash = "sha256:1f3deee12b914c8fa184bd2b5953391c2e4f36763e403d4a23dc9983fa7c6e86"},
 ]
 
 [package.dependencies]
@@ -1069,6 +1077,7 @@ description = "Python interpreter discovery"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
+markers = "python_version >= \"3.11\""
 files = [
     {file = "python_discovery-1.9.5-py3-none-any.whl", hash = "sha256:a1fae8fca11e4bc61e38491c2aafff29e430b3c5e272d51ae52fb895bc4c0fac"},
     {file = "python_discovery-1.9.5.tar.gz", hash = "sha256:86279f5d2728bc067de28b7ddc571be2eacc2ae0e7048f8629d2481a0f8848a2"},
@@ -1139,6 +1148,7 @@ files = [
     {file = "PyYAML-6.0.2-cp39-cp39-win_amd64.whl", hash = "sha256:39693e1f8320ae4f43943590b49779ffb98acb81f788220ea932a6b6c51004d8"},
     {file = "pyyaml-6.0.2.tar.gz", hash = "sha256:d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e"},
 ]
+markers = {dev = "python_version >= \"3.11\""}
 
 [[package]]
 name = "requests"
@@ -1278,7 +1288,7 @@ version = "4.16.0"
 description = "Backported and Experimental Type Hints for Python 3.9+"
 optional = false
 python-versions = ">=3.9"
-groups = ["main", "dev", "test"]
+groups = ["main", "test"]
 markers = "python_version < \"3.11\""
 files = [
     {file = "typing_extensions-4.16.0-py3-none-any.whl", hash = "sha256:481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"},
@@ -1322,6 +1332,7 @@ description = "Virtual Python Environment builder"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
+markers = "python_version >= \"3.11\""
 files = [
     {file = "virtualenv-21.14.13-py3-none-any.whl", hash = "sha256:5fbb04138a4861580b78ba9110d529a26bc48fcc93c8ec36bc0202eeed96a788"},
     {file = "virtualenv-21.14.13.tar.gz", hash = "sha256:de5307ba4b9a0001d9c8ea02832d38f63ca432880f416c1bface61c4323fd905"},
@@ -1333,7 +1344,6 @@ filelock = {version = ">=3.24.2,<5", markers = "python_version >= \"3.10\""}
 packaging = ">=26.3"
 platformdirs = ">=4.4,<5"
 python-discovery = ">=1.6.1"
-typing-extensions = {version = ">=4.16", markers = "python_version < \"3.11\""}
 
 [[package]]
 name = "werkzeug"
@@ -1341,7 +1351,7 @@ version = "3.1.9"
 description = "The comprehensive WSGI web application library."
 optional = false
 python-versions = ">=3.9"
-groups = ["dev", "test"]
+groups = ["test"]
 files = [
     {file = "werkzeug-3.1.9-py3-none-any.whl", hash = "sha256:6392e50c78460ba618e5b21f08a71f59c99ce99cdc6cf6e3dd7e6ccca8754fab"},
     {file = "werkzeug-3.1.9.tar.gz", hash = "sha256:55ca7c70a75689be937aa27f8ff4b018f06ff4838fc73045560bf0f5a1291060"},
@@ -1371,4 +1381,4 @@ test = ["pytest", "pytest-cov"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">3.10.0,<4.0"
-content-hash = "3b4147735fe02219bb19b157f4beafee93d9a5c57dd3a014a56d6e02a7ec6e84"
+content-hash = "d12d3a9af553cf3fa383e35520e6755403727951403513934f0a66133b702e4c"
